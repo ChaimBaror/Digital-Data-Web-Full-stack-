@@ -1,0 +1,28 @@
+GET http://localhost:3001/user HTTP/1.1
+
+###
+
+POST  http://localhost:3001/user HTTP/1.1
+content-type: application/json
+
+{
+  "email": "mmm.chIM@gmail.com",
+  "name": "dav",
+  "age": "30"
+}
+
+###
+
+PATCH http://localhost:3000/user/f646daf0fb03c840 HTTP/1.1
+content-type: application/json
+
+{
+  "firstName": "Yaacov",
+  "profilePicture": "https://i.stack.imgur.com/Bb6z1.jpg?s=64&g=1"
+}
+
+###
+
+DELETE http://localhost:3000/user/e5d34b4862fa88f9 HTTP/1.1
+
+###

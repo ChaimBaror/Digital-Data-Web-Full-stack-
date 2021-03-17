@@ -1,5 +1,6 @@
+const fs = require('fs');
 
-const data = require('../data.json');
+const data = require('../../data.json');
 
 // export interface users {
 //     id:String,
@@ -9,4 +10,6 @@ const data = require('../data.json');
 // }
 
 export const tempData = (data)
+
+
 
