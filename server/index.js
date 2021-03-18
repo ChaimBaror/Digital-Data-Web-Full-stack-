@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 var cors = require('cors');
 
-app.use(bodyParser.json());
+// parse application/x-www-form-urlencoded
 
 app.use(cors())
 app.get('/', (req, res) => {
@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
         message: "hi chaim here"
     })
 })
+app.use(bodyParser.json())
 app.use(user.ROUTE_PATH, user.route)
 
 app.listen(port, () => {
