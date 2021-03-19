@@ -17,21 +17,28 @@ const useStyles = makeStyles({
     },
 });
 const Showing = (props: props) => {
+console.log(props.data);
 
     const columns = [
-        { field: 'id', width: 200 },
+       
         { field: 'name', width: 200 },
         { field: 'age', width: 200 },
         { field: 'email', width: 200 },]
 
-    const rows = props.data;
+    const rows = props.data       
+ 
     const classes = useStyles();
 
     return (
         <div>
-            {rows.length < 0 ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
+         
+            {rows.map((u,i)=>{ console.log(rows)
+}
+                // (<div key={i}><h1>{props.data[u]}</h1></div>)
+            )}
+            {rows ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-            </div>) : <h1>loading....</h1>}
+            </div>) : <h1 style={{textAlign:"center"}}>loading....</h1>}
         </div>
     )
 

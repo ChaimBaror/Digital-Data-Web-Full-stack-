@@ -27,15 +27,13 @@ const App = () => {
       for (let key in res.data) {
         usersdb.push({
           ...res.data[key],
-          id: key
         });
       }
-      setstate(
-        [...state, ...usersdb]
-      )
+      console.log(usersdb[0]);
+      setstate(usersdb)
 
     }).catch(err => {
-      setLoading(false);
+      console.log(err);
     });
   }, [])
 
@@ -47,28 +45,23 @@ const App = () => {
       age: event.age,
       email: event.email,
     }
-
-    console.log("newMember :", newMember);
+    setstate(
+      [...state, newMember]
+    )
     const user = JSON.stringify(newMember)
     axios.post('/user', { user }).then(res => console.log(res))
 
-    // setstate(
-    //   [...state, newMember]
-    // )
+
   }
 
   const classes = useStyles();
-  const [value, setValue] = useState('add User');
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <div>
       <Router>
         <AppBar position="static">
-          <Toolbar style={{justifyContent:"space-around"}}>
+          <Toolbar style={{ justifyContent: "space-around" }}>
             <Typography variant="h4" className={classes.title}>
               <Link to={'/ShowUsers'}>Show Users</Link>
             </Typography>

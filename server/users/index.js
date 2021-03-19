@@ -8,7 +8,7 @@ const route = express.Router()
 const data = tempData()
 
 route.get("/", (req, res, next) => {
-  // console.log("tempData", data);
+  console.log("tempData", data);
   const users = data;
   if (users) {
     res.send(users);

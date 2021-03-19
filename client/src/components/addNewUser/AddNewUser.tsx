@@ -1,7 +1,7 @@
-import { Button, FormGroup, Input, makeStyles } from '@material-ui/core';
-import { Label } from '@material-ui/icons';
+import { Button, FormGroup, Input, makeStyles, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { validationRules } from './FormVanilla '
+import Alert from '@material-ui/lab/Alert';
 
 
 interface props {
@@ -43,7 +43,7 @@ const AddNewUser = (props: props) => {
 
 
     const handleSubmit = (event: any) => {
-        if (state.name.isValid && state.name.isValid) {
+        if (state.name.isValid && state.email.isValid) {
             event.preventDefault();
             console.log(state);
             props.clicked({
@@ -51,16 +51,23 @@ const AddNewUser = (props: props) => {
                 email: state.email.value,
                 age: state.age.value,
             })
+
             alert("נשלח בהצלחה")
         }
         else {
             alert("נא מלא את כל השדות תקינים")
         }
+        setState({
+            signupForm: { isValid: false },
+            name: { value: '', isTouched: false, isValid: false, errors: [] },
+            age: { value: '', isTouched: false, isValid: false, errors: [] },
+            email: { value: '', isTouched: false, isValid: false, errors: [] },
+        })
 
     }
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let newState = { ...state };
-        const namefield = event.target.name; // name
+        const namefield = event.target.name; // | name |age |email
         if (namefield == "name") {
             newState.name.value = event.target.value;
         }
@@ -112,22 +119,24 @@ const AddNewUser = (props: props) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ textAlign: "center", width: '300px', border: "1px solid #ccc" ,margin:"25px"}}>
+            <div style={{ textAlign: "center", width: '300px', border: "1px solid #ccc", margin: "25px" }}>
                 <FormGroup >
-                    <label >User Name  </label>
-                    <Input
-                        type="text" name="name" onChange={handleInputChange} required />
+
+                    <TextField
+                        id="outlined-basic" label="User Name" variant="outlined"
+                        type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
                     {/* {state.name.isTouched && state.name.errors.length > 0 && state.name.errors.map((err, i) => (<span key={i} className="error-message">{err}</span>))} */}
-                    {state.name.isValid ? (<span className={classes.erroressage}>good name</span>) : (<span className={classes.error}>whis is name</span>)}
+                    {state.name.isValid ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>)}
 
-                    <label >Email    </label>
-                    <Input type="email" name="email" onChange={handleInputChange} required />
-                    {state.email.isValid ? (<span className={classes.erroressage}>email ....</span>) : (<span className={classes.error}>email....</span>)}
 
-                    <label >Age    </label>
-                    <Input  type="number" name="age" onChange={handleInputChange} required />
+                    <TextField
+                        id="outlined-basic" label="Email" variant="outlined"
+                        type="email" name="email" value={state.email.value} onChange={handleInputChange} required />
+                    {state.email.isValid ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>)}
 
-                   
+                    <TextField id="outlined-basic" label="Age" variant="outlined" type="number" name="age" value={state.age.value} onChange={handleInputChange} required />
+
+
                 </FormGroup>
                 <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
 
