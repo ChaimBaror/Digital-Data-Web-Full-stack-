@@ -1,7 +1,7 @@
 
 const { tempData } = require('../db/users/data.')
 
-const User = tempData()
+const Users = tempData()
 
 const createUser = async (userBody) => {
   const user = await User.create(userBody);
@@ -16,9 +16,13 @@ const getUserByName = async (name) => {
   return User.findByName(name);
 };
 
-const getUserByEmail =  (email) => {
-  console.log("email user" , email);
-  return User.find( ({ email }) => email == email );
+const getUserByEmail = (email) => {
+  for (let user of Users){
+    if(user.email==email){
+      return true;
+    }
+  }
+  return null;
 };
 
 

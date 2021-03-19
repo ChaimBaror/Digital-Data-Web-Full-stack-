@@ -3,15 +3,20 @@ const data = require('../../data.json');
 
 
 let usersdb = [];
-
 const tempData = () => {
+    usersdb = [{"id":"000","name":"testfirst", "email": "test@gamil.com","age": "18"}]
     console.log("this databaess JSON is work");
-    for (let key in data) {
-        usersdb.push(
+    let myData={...data}
+    for (let key in myData) {
+            usersdb.push(
             data[key]
         );
     }
-    return usersdb;
+    const arr = getUniqueListBy(usersdb, 'id')
+    return arr;
+}
+function getUniqueListBy(arr, key) {
+    return [...new Map(arr.map(item => [item[key], item])).values()]
 }
 
 
@@ -19,7 +24,6 @@ const tempData = () => {
        usersdb.push(user)
        console.log("this add to json woek");
         const dataflie = usersdb
-        console.log("dataflie " + dataflie);
         const jsonString = JSON.stringify(dataflie)
         fs.writeFile('data.json', jsonString, err => {
             if (err) {

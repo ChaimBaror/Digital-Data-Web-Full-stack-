@@ -5,11 +5,10 @@ const { addtojson, tempData } = require('../db/users/data.')
 const { getUserByEmail } = require('../services/users.service')
 
 const route = express.Router()
-
 const data = tempData()
 
 route.get("/", (req, res, next) => {
-  console.log("tempData", data);
+  // console.log("tempData", data);
   const users = data;
   if (users) {
     res.send(users);
@@ -20,25 +19,13 @@ route.get("/", (req, res, next) => {
 
 
 route.post("/", async (req, res) => {
-
   const { body } = req;
   let user = body.user
   let userClient = JSON.parse(user)
-
   try {
     const user = validateUser(userClient, false);
-    // console.log("post user ",user);
-    const chechEmail = getUserByEmail(user.email)
-    // console.log("chechEmail --- ", chechEmail);
-    if (!chechEmail) {
-      const newUser = addtojson(user)
-      res.json(newUser);
-    } else {
-      res.status(405).json({
-        message: "this email Not unique",
-      })
-    }
-
+    const newUser = addtojson(user)
+    res.json(newUser);
   } catch (e) {
     res.status(422).json({
       error: e.message,
@@ -60,6 +47,11 @@ function validateUser(body, enforce) {
   }
   if (!age || age && "string" !== typeof age) {
     throw new Error("Invalid age");
+  }
+  const chechEmail = getUserByEmail(email)
+  if (chechEmail) {
+    console.log("Invalid email is not UniquechechEmail --- ", email);
+    throw new Error("Invalid email is not Unique");
   }
 
   return {
