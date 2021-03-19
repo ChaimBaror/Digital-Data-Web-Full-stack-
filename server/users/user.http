@@ -8,9 +8,9 @@ POST  http://localhost:3001/user HTTP/1.1
 content-type: application/json
 
 {
-  "email": "c1haim@gmail.com",
+  "email": "test@gmail.com",
   "name": "ba1ror",
-  "age": "13"
+  "age": "66"
 }
 
 ###

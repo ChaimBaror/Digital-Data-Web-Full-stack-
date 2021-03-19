@@ -1,28 +1,25 @@
 const fs = require('fs');
 const data = require('../../data.json');
-// export interface users {
-//     id:String,
-//     name:String,
-//     email:String,
-//     age:String
-// }
+
+
+let usersdb = [];
+
 const tempData = () => {
-    const myData = data
-    let usersdb = [];
+    console.log("this databaess JSON is work");
     for (let key in data) {
         usersdb.push(
             data[key]
         );
-        console.log(usersdb);
     }
     return usersdb;
 }
 
 
    const addtojson= (user) => {
-       console.log("this not woek");
-        const dataflie = { user, ...data }
-        console.log("dataflie" + dataflie);
+       usersdb.push(user)
+       console.log("this add to json woek");
+        const dataflie = usersdb
+        console.log("dataflie " + dataflie);
         const jsonString = JSON.stringify(dataflie)
         fs.writeFile('data.json', jsonString, err => {
             if (err) {

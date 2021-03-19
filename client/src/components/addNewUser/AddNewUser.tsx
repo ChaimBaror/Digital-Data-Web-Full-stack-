@@ -1,16 +1,36 @@
+import { Button, FormGroup, Input, makeStyles } from '@material-ui/core';
+import { Label } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import { validationRules } from './FormVanilla '
 
 
 interface props {
-    clicked: (e: {}) => void;
+    clicked: (e: any) => void;
 }
 interface fields {
     name: string,
     email: string,
     age: string,
 }
+const useStyles = makeStyles({
+    erroressage: {
+        color: '#10C761',
+        fontWeight: 'bold',
+        fontSize: '0.9em',
+        display: 'block',
+        textAlign: 'center',
+        marginTop: '5px',
 
+    },
+    error: {
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: '0.9em',
+        display: 'block',
+        textAlign: 'center',
+        marginTop: '5px',
+    },
+});
 const AddNewUser = (props: props) => {
     const fields = ['name', 'age', 'email'];
 
@@ -27,9 +47,9 @@ const AddNewUser = (props: props) => {
             event.preventDefault();
             console.log(state);
             props.clicked({
-               name:state.name.value,
-               email:state.email.value,
-               age:state.age.value,
+                name: state.name.value,
+                email: state.email.value,
+                age: state.age.value,
             })
             alert("נשלח בהצלחה")
         }
@@ -44,10 +64,10 @@ const AddNewUser = (props: props) => {
         if (namefield == "name") {
             newState.name.value = event.target.value;
         }
-        if (namefield == "age") {
+        else if (namefield == "age") {
             newState.age.value = event.target.value;
         }
-        if (namefield == "email") {
+        else if (namefield == "email") {
             newState.email.value = event.target.value;
         }
         console.log(newState.email.isValid);
@@ -88,24 +108,29 @@ const AddNewUser = (props: props) => {
         'email': [{ rule: validationRules.required, message: 'Email is required' }, { rule: validationRules.email, message: 'Email is invalid' }],
     }
 
+    const classes = useStyles();
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ textAlign: "center", width: '200px', border: "1px solid #ccc" }}>
-                <form onSubmit={handleSubmit}>
-                    <label >User Name : </label>
-                    <input
+            <div style={{ textAlign: "center", width: '300px', border: "1px solid #ccc" ,margin:"25px"}}>
+                <FormGroup >
+                    <label >User Name  </label>
+                    <Input
                         type="text" name="name" onChange={handleInputChange} required />
-                    {state.name.isTouched && state.name.errors.length > 0 && state.name.errors.map((err, i) => (<span key={i} className="error-message">{err}</span>))}
+                    {/* {state.name.isTouched && state.name.errors.length > 0 && state.name.errors.map((err, i) => (<span key={i} className="error-message">{err}</span>))} */}
+                    {state.name.isValid ? (<span className={classes.erroressage}>good name</span>) : (<span className={classes.error}>whis is name</span>)}
 
-                    <label >Email :
-                <input type="email" name="email" onChange={handleInputChange} required />
-                    </label>
-                    <label >Age :
-                <input min="0" max="99" type="number" name="age" onChange={handleInputChange} required />
-                    </label>
-                    <br />
-                    <input type="submit" value="Add User" />
-                </form>
+                    <label >Email    </label>
+                    <Input type="email" name="email" onChange={handleInputChange} required />
+                    {state.email.isValid ? (<span className={classes.erroressage}>email ....</span>) : (<span className={classes.error}>email....</span>)}
+
+                    <label >Age    </label>
+                    <Input  type="number" name="age" onChange={handleInputChange} required />
+
+                   
+                </FormGroup>
+                <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
+
             </div>
         </div>
     )

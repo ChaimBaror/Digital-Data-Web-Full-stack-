@@ -1,14 +1,12 @@
 const crypto = require('crypto');
-
 const express = require("express");
 const validator = require("validator");
-const data = require('../data.json');
-const fs = require('fs');
-const addtojson = require('../db/users/data.')
+const { addtojson, tempData } = require('../db/users/data.')
+const { getUserByEmail } = require('../services/users.service')
 
 const route = express.Router()
 
-
+const data = tempData()
 
 route.get("/", (req, res, next) => {
   console.log("tempData", data);
@@ -24,15 +22,23 @@ route.get("/", (req, res, next) => {
 route.post("/", async (req, res) => {
 
   const { body } = req;
-  let user =body.user
-  let userClient =JSON.parse(user)
-  console.log('jhg',userClient);
+  let user = body.user
+  let userClient = JSON.parse(user)
 
   try {
     const user = validateUser(userClient, false);
-    console.log("post user ",user);
-    const newUser =addtojson(user)
-    res.json(newUser);
+    // console.log("post user ",user);
+    const chechEmail = getUserByEmail(user.email)
+    // console.log("chechEmail --- ", chechEmail);
+    if (!chechEmail) {
+      const newUser = addtojson(user)
+      res.json(newUser);
+    } else {
+      res.status(405).json({
+        message: "this email Not unique",
+      })
+    }
+
   } catch (e) {
     res.status(422).json({
       error: e.message,
@@ -71,15 +77,3 @@ module.exports = {
 }
 
 
-
-// const addtojson = (user) => {
-//   const dataflie = {user, ...data }
-//   const jsonString = JSON.stringify(dataflie)
-//   fs.writeFile('data.json', jsonString, err => {
-//     if (err) {
-//       console.log('Error writing file', err)
-//     } else {
-//       console.log('Successfully wrote file')
-//     }
-//   })
-// }
