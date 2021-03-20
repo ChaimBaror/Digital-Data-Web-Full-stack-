@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, ValueGetterParams } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Spinner from '../Spinner/Spinner';
 
 export interface user {
     id?: string,
@@ -25,20 +26,20 @@ console.log(props.data);
         { field: 'age', width: 200 },
         { field: 'email', width: 200 },]
 
-    const rows = props.data       
+    const rows:user[] =props.data;       
  
     const classes = useStyles();
 
     return (
         <div>
-         
+       
             {rows.map((u,i)=>{ console.log(rows)
 }
                 // (<div key={i}><h1>{props.data[u]}</h1></div>)
             )}
-            {rows ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
+            {rows.length>1 ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-            </div>) : <h1 style={{textAlign:"center"}}>loading....</h1>}
+            </div>) : <Spinner />}
         </div>
     )
 

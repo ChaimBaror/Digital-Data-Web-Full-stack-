@@ -6,9 +6,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import axios from './api/HttpClient'
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
-
-
-
 const useStyles = makeStyles({
   root: {
     width: 500,
@@ -17,9 +14,7 @@ const useStyles = makeStyles({
 
 const App = () => {
   const [loading, setLoading] = useState(true)
-  const [state, setstate] = useState([
-
-  ]);
+  const [state, setstate] = useState([ ]);
 
   useEffect(() => {
     axios.get('/user').then(res => {
@@ -45,11 +40,11 @@ const App = () => {
       age: event.age,
       email: event.email,
     }
-    setstate(
-      [...state, newMember]
-    )
+    // setstate(
+    //   [...state, newMember]
+    // )
     const user = JSON.stringify(newMember)
-    axios.post('/user', { user }).then(res => console.log(res))
+    axios.post('/user', { user }).then(res => console.log(res.err))
 
 
   }
@@ -66,18 +61,19 @@ const App = () => {
               <Link to={'/ShowUsers'}>Show Users</Link>
             </Typography>
             <Typography variant="h4" className={classes.title}>
-              <Link to={'/'}>add User</Link>
+              <Link to={'/addUser'}>add User</Link>
             </Typography>
           </Toolbar>
         </AppBar>
         <nav>
           <ul>
-            <li><Link to={'/'}>add User</Link></li>
+            <li><Link to={'/'}>Home</Link></li>
+            <li><Link to={'/addUser'}>addUser</Link></li>
             <li><Link to={'/ShowUsers'}>Show Users</Link></li>
           </ul>
         </nav>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/addUser" exact>
             <AddNewUser clicked={addUserArr} />
           </Route>
           <Route path="/ShowUsers">

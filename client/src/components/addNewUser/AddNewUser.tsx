@@ -1,6 +1,6 @@
 import { Button, FormGroup, Input, makeStyles, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
-import { validationRules } from './FormVanilla '
+import { validationRules } from './validationRules'
 import Alert from '@material-ui/lab/Alert';
 
 
