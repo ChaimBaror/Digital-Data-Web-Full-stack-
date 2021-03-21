@@ -18,7 +18,6 @@ const useStyles = makeStyles({
     },
 });
 const Showing = (props: props) => {
-console.log(props.data);
 
     const columns = [
        
@@ -32,11 +31,6 @@ console.log(props.data);
 
     return (
         <div>
-       
-            {rows.map((u,i)=>{ console.log(rows)
-}
-                // (<div key={i}><h1>{props.data[u]}</h1></div>)
-            )}
             {rows.length>1 ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
             </div>) : <Spinner />}

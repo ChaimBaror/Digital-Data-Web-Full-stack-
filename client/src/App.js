@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from './store/actions/index'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import axios from './api/HttpClient'
 
 import AddNewUser from './components/addNewUser/AddNewUser';
 import Showing from './components/showing/ShowingTableUser';
-
 
 
 const useStyles = makeStyles({
@@ -35,9 +34,8 @@ const App = () => {
           ...res.data[key],
         });
       }
-      console.log(usersdb[0]);
+      console.log("get users usersdb");
       setstate(usersdb)
-
     }).catch(err => {
       setError(error.message);
     });
@@ -47,29 +45,19 @@ const App = () => {
   const addUserArr = (event) => {
     console.log("add User app");
     const newMember = {
-      // id: Math.random() * 1000000,
       name: event.name,
       age: event.age,
       email: event.email,
     }
-    // setstate(
-    //   [...state, newMember]
-    // )
-    const user = JSON.stringify(newMember)
-    console.log("actions.adduser(user)",newMember);
-
+    // const user = JSON.stringify(newMember)
+    console.log("actions.adduser(user)");
     dispatch(actions.adduser(newMember))
-
-    // axios.post('/user', { user }).then(res => console.log(res.err))
-
-
   }
 
   const classes = useStyles();
 
-
   return (
-    <div>
+  
       <Router>
         <AppBar position="static">
           <Toolbar style={{ justifyContent: "space-around" }}>
@@ -98,11 +86,8 @@ const App = () => {
         </Switch>
       </Router>
 
-    </div>
   );
 }
-
-
 
 
 export default App;

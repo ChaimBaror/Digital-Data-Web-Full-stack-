@@ -7,18 +7,10 @@ const INIT_STATE = {
     error:false
 };
 
-// export default function data(state = INIT_STATE, action) {
-//     return state
-// }
 
  const postUser = ( state, action ) => {
+    return { ...state,  };
 
-    // console.log("postUser reduers",action);
-    // const user = JSON.stringify(action.userName)
-    // axios.post('/user', { user }).then(res => console.log(res.err))
-    return ( state, {
-        loading: false,
-    } );
 };
 
  const getUser = ( state, action ) => {
@@ -27,7 +19,7 @@ const INIT_STATE = {
 };
 
 const postUserAfterSaga = ( state, action ) => {
-   console.log("post User After Saga");
+   console.log("post User After Saga POST SUCCESS");
 };
 
 const reducer = ( state = INIT_STATE, action ) => {

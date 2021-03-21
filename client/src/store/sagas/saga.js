@@ -5,12 +5,10 @@ import * as actions from '../actions/index';
 
 
 export function* createPostSaga(action) {
-  console.log("create Post Saga action" ,action);
+  console.log("create Post Saga action");
     const userData = action.userName
     try {;
       const response = yield call(axios.post,"/user", userData)
-      console.log("response sags", response);
-      
       yield put({ type: actionTypes.ADD_USER, response })
     } catch (error) {
       yield put({ type: actionTypes.POST_ERROR, error })
