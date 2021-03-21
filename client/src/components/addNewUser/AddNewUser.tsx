@@ -124,13 +124,13 @@ const AddNewUser = (props: props) => {
                         id="outlined-basic" label="User Name" variant="outlined"
                         type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
                     {/* {state.name.isTouched && state.name.errors.length > 0 && state.name.errors.map((err, i) => (<span key={i} className="error-message">{err}</span>))} */}
-                    {state.name.isValid ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>)}
+                    {state.name.isValid && state.name.value.length>1? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>)}
 
 
                     <TextField
                         id="outlined-basic" label="Email" variant="outlined"
                         type="email" name="email" value={state.email.value} onChange={handleInputChange} required />
-                    {state.email.isValid ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>)}
+                    {state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>)}
 
                     <TextField id="outlined-basic" label="Age" variant="outlined" type="number" name="age" value={state.age.value} onChange={handleInputChange} required />
 
