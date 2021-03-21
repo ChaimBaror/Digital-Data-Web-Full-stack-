@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from './store/actions/index'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import axios from './api/HttpClient'
 
 import AddNewUser from './components/addNewUser/AddNewUser';
-import Showing from './components/showing/Showing';
+import Showing from './components/showing/ShowingTableUser';
 
-import { useDispatch, useSelector } from "react-redux";
- 
-  // const getAllUsers = useSelector(state => state.getAllUsers);
-  // const dispatch = useDispatch();
 
 
 const useStyles = makeStyles({
@@ -22,32 +19,35 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
+
+  const dispatch = useDispatch();
   const [error, setError] = useState("")
   const [state, setstate] = useState([]);
 
   useEffect(() => {
+    // const alluserStateGlobal = useSelector(state => state)
+    // console.log("app use Effect", alluserStateGlobal);
 
-    // axios.get('/user').then(res => {
-    //   const usersdb = [];
-    //   for (let key in res.data) {
-    //     usersdb.push({
-    //       ...res.data[key],
-    //     });
-    //   }
-    //   console.log(usersdb[0]);
-    //   setstate(usersdb)
+    axios.get('/user').then(res => {
+      const usersdb = [];
+      for (let key in res.data) {
+        usersdb.push({
+          ...res.data[key],
+        });
+      }
+      console.log(usersdb[0]);
+      setstate(usersdb)
 
-    // }).catch(err => {
-    //   setError(err);
-    // });
+    }).catch(err => {
+      setError(error.message);
+    });
   }, [])
-
-  
 
 
   const addUserArr = (event) => {
+    console.log("add User app");
     const newMember = {
-      id: Math.random() * 1000000,
+      // id: Math.random() * 1000000,
       name: event.name,
       age: event.age,
       email: event.email,
@@ -56,7 +56,11 @@ const App = () => {
     //   [...state, newMember]
     // )
     const user = JSON.stringify(newMember)
-    axios.post('/user', { user }).then(res => console.log(res.err))
+    console.log("actions.adduser(user)",newMember);
+
+    dispatch(actions.adduser(newMember))
+
+    // axios.post('/user', { user }).then(res => console.log(res.err))
 
 
   }
@@ -101,6 +105,7 @@ const App = () => {
 
 
 
-export default App ;
+export default App;
+
 
 

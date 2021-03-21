@@ -45,13 +45,11 @@ const AddNewUser = (props: props) => {
     const handleSubmit = (event: any) => {
         if (state.name.isValid && state.email.isValid) {
             event.preventDefault();
-            console.log(state);
-            props.clicked({
-                name: state.name.value,
+            // console.log(state);
+            props.clicked({ name: state.name.value,
                 email: state.email.value,
                 age: state.age.value,
             })
-
             alert("נשלח בהצלחה")
         }
         else {

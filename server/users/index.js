@@ -21,9 +21,11 @@ route.get("/", (req, res, next) => {
 route.post("/", async (req, res) => {
   const { body } = req;
   let user = body.user
-  let userClient = JSON.parse(user)
+  console.log("body uset post",body);
+  let userClient = user
+
   try {
-    const user = validateUser(userClient, false);
+    const user = validateUser(body, false);
     const newUser = addtojson(user)
     res.json(newUser);
   } catch (e) {

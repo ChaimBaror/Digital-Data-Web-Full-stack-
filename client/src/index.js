@@ -13,7 +13,7 @@ const sagaMiddleware = createSagaMiddleware()
 // const store = createStore(reducer)
 
 const store = createStore(
-  reducer,
+  reducer, 
   applyMiddleware(sagaMiddleware)
 )
 sagaMiddleware.run(watchUsers)

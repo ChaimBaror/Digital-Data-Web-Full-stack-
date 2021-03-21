@@ -14,7 +14,7 @@ interface props {
 }
 const useStyles = makeStyles({
     table: {
-        minWidth: 650,
+        minWidth: 520,
     },
 });
 const Showing = (props: props) => {
@@ -22,9 +22,9 @@ console.log(props.data);
 
     const columns = [
        
-        { field: 'name', width: 200 },
-        { field: 'age', width: 200 },
-        { field: 'email', width: 200 },]
+        { field: 'name', headerName: 'User Name', width: 200 },
+        { field: 'age', headerName: 'Age', type: 'number',  width: 120},
+        { field: 'email',headerName: 'EMAIL', width: 200 },]
 
     const rows:user[] =props.data;       
  
