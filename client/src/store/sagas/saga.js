@@ -11,6 +11,7 @@ export function* createPostSaga(action) {
       const response = yield call(axios.post,"/user", userData)
       yield put({ type: actionTypes.ADD_USER, response })
     } catch (error) {
+      console.log(error); 
       yield put({ type: actionTypes.POST_ERROR, error })
     }
   }

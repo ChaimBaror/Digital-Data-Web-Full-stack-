@@ -1,5 +1,5 @@
-import { Button, FormGroup, Input, makeStyles, TextField } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import { Button, FormGroup, makeStyles, TextField } from '@material-ui/core';
+import React, { useState } from 'react'
 import { validationRules } from './validationRules'
 import Alert from '@material-ui/lab/Alert';
 
@@ -13,6 +13,17 @@ interface fields {
     age: string,
 }
 const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    div: {
+        textAlign: "center",
+        width: '300px',
+        border: "1px solid #ccc",
+        margin: "25px"
+    },
+
     erroressage: {
         color: '#10C761',
         fontWeight: 'bold',
@@ -32,6 +43,9 @@ const useStyles = makeStyles({
     },
 });
 const AddNewUser = (props: props) => {
+
+    const [send, setSend] = useState("")
+    const [errorPost, setErrorPost] = useState("")
     const fields = ['name', 'age', 'email'];
 
     const [state, setState] = useState({
@@ -46,14 +60,15 @@ const AddNewUser = (props: props) => {
         if (state.name.isValid && state.email.isValid) {
             event.preventDefault();
             // console.log(state);
-            props.clicked({ name: state.name.value,
+            props.clicked({
+                name: state.name.value,
                 email: state.email.value,
                 age: state.age.value,
             })
-            alert("נשלח בהצלחה")
+            setSend("נשלח בהצלחה")
         }
         else {
-            alert("נא מלא את כל השדות תקינים")
+            setSend("נא מלא את כל השדות תקינים")
         }
         setState({
             signupForm: { isValid: false },
@@ -64,6 +79,7 @@ const AddNewUser = (props: props) => {
 
     }
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSend("")
         let newState = { ...state };
         const namefield = event.target.name; // | name |age |email
         if (namefield == "name") {
@@ -75,8 +91,6 @@ const AddNewUser = (props: props) => {
         else if (namefield == "email") {
             newState.email.value = event.target.value;
         }
-        console.log(newState.email.isValid);
-
         validateForm(newState, namefield);
     };
 
@@ -116,27 +130,31 @@ const AddNewUser = (props: props) => {
     const classes = useStyles();
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ textAlign: "center", width: '300px', border: "1px solid #ccc", margin: "25px" }}>
+        <div className={classes.root}>
+            <div className={classes.div}>
+
                 <FormGroup >
 
                     <TextField
                         id="outlined-basic" label="User Name" variant="outlined"
                         type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
-                    {/* {state.name.isTouched && state.name.errors.length > 0 && state.name.errors.map((err, i) => (<span key={i} className="error-message">{err}</span>))} */}
-                    {state.name.isValid && state.name.value.length>1? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>)}
+                    {state.name.value.length?state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>):""}
 
 
                     <TextField
                         id="outlined-basic" label="Email" variant="outlined"
                         type="email" name="email" value={state.email.value} onChange={handleInputChange} required />
-                    {state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>)}
+                    {state.email.value.length?state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>):""}
 
                     <TextField id="outlined-basic" label="Age" variant="outlined" type="number" name="age" value={state.age.value} onChange={handleInputChange} required />
 
 
                 </FormGroup>
                 <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
+                <div>
+                {send  && !errorPost? <Alert severity="info">{send}</Alert> : ""}
+                </div>
+                <div>{errorPost? <Alert severity="error">{errorPost}</Alert>:""}</div>
 
             </div>
         </div>

@@ -27,4 +27,13 @@ export const postUserAfterSaga = (payload) => {
     }
 }
 
+export const ERROR_POST = (err) => {
+    console.log("error User After Saga");
+
+    return {
+        type: actionTypes.POST_ERROR,
+        error: err
+    }
+}
+
 

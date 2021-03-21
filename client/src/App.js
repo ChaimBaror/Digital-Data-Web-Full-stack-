@@ -9,6 +9,7 @@ import axios from './api/HttpClient'
 
 import AddNewUser from './components/addNewUser/AddNewUser';
 import Showing from './components/showing/ShowingTableUser';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles({
@@ -18,15 +19,15 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
-
   const dispatch = useDispatch();
+  const globalState = useSelector(state => state);
+  console.log("globalState", globalState);
+
+
   const [error, setError] = useState("")
   const [state, setstate] = useState([]);
-
+  // setstate(globalState.users)
   useEffect(() => {
-    // const alluserStateGlobal = useSelector(state => state)
-    // console.log("app use Effect", alluserStateGlobal);
-
     axios.get('/user').then(res => {
       const usersdb = [];
       for (let key in res.data) {
@@ -36,12 +37,15 @@ const App = () => {
       }
       console.log("get users usersdb");
       setstate(usersdb)
-    }).catch(err => {
+    }).catch(error => {
       setError(error.message);
     });
   }, [])
+  //  const getAllUsers = () => {
+  //   const usersdb= dispatch(actions.getAllUsers())
+  //         setstate(usersdb)
 
-
+  //  }
   const addUserArr = (event) => {
     console.log("add User app");
     const newMember = {
@@ -49,42 +53,45 @@ const App = () => {
       age: event.age,
       email: event.email,
     }
-    // const user = JSON.stringify(newMember)
     console.log("actions.adduser(user)");
     dispatch(actions.adduser(newMember))
+
   }
 
   const classes = useStyles();
 
   return (
-  
-      <Router>
-        <AppBar position="static">
-          <Toolbar style={{ justifyContent: "space-around" }}>
-            <Typography variant="h4" className={classes.title}>
-              <Link to={'/ShowUsers'}>Show Users</Link>
-            </Typography>
-            <Typography variant="h4" className={classes.title}>
-              <Link to={'/addUser'}>add User</Link>
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <ul>
-            <li><Link to={'/'}>Home</Link></li>
-            <li><Link to={'/addUser'}>addUser</Link></li>
-            <li><Link to={'/ShowUsers'}>Show Users</Link></li>
-          </ul>
-        </nav>
-        <Switch>
-          <Route path="/addUser" exact>
-            <AddNewUser clicked={addUserArr} />
-          </Route>
-          <Route path="/ShowUsers">
-            <Showing data={state} />
-          </Route>
-        </Switch>
-      </Router>
+
+    <Router>
+      <AppBar position="static">
+        <Toolbar style={{ justifyContent: "space-around" }}>
+          <Typography variant="h4" className={classes.title}>
+            <Link to={'/ShowUsers'}>Show Users</Link>
+          </Typography>
+          <Typography variant="h4" className={classes.title}>
+            <Link to={'/addUser'}>add User</Link>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div>{globalState.error? <Alert severity="error">{globalState.error}</Alert>:""}</div>
+
+      <nav>
+        <ul>
+          <li><Link to={'/'}>Home</Link></li>
+          <li><Link to={'/addUser'}>addUser</Link></li>
+          <li><Link to={'/ShowUsers'}>Show Users</Link></li>
+        </ul>
+      </nav>
+
+      <Switch>
+        <Route path="/addUser" exact>
+          <AddNewUser clicked={addUserArr} />
+        </Route>
+        <Route path="/ShowUsers">
+          <Showing data={state} />
+        </Route>
+      </Switch>
+    </Router>
 
   );
 }
