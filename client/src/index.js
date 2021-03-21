@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux'
 import reducer from './store/reducers/users';
 import createSagaMiddleware from 'redux-saga';
 
-import { helloSaga } from './store/sagas/saga'
+import { watchUsers } from './store/sagas/index'
 const sagaMiddleware = createSagaMiddleware()
 // const store = createStore(reducer)
 
@@ -16,7 +16,7 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware)
 )
-sagaMiddleware.run(helloSaga)
+sagaMiddleware.run(watchUsers)
 
 ReactDOM.render(
   <React.StrictMode>

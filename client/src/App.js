@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import * as actions from './store/actions/index'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import axios from './api/HttpClient'
+
 import AddNewUser from './components/addNewUser/AddNewUser';
 import Showing from './components/showing/Showing';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import axios from './api/HttpClient'
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+
+import { useDispatch, useSelector } from "react-redux";
+ 
+  // const getAllUsers = useSelector(state => state.getAllUsers);
+  // const dispatch = useDispatch();
+
 
 const useStyles = makeStyles({
   root: {
@@ -13,24 +22,27 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
-  const [state, setstate] = useState([ ]);
+  const [error, setError] = useState("")
+  const [state, setstate] = useState([]);
 
   useEffect(() => {
-    axios.get('/user').then(res => {
-      const usersdb = [];
-      for (let key in res.data) {
-        usersdb.push({
-          ...res.data[key],
-        });
-      }
-      console.log(usersdb[0]);
-      setstate(usersdb)
 
-    }).catch(err => {
-      console.log(err);
-    });
+    // axios.get('/user').then(res => {
+    //   const usersdb = [];
+    //   for (let key in res.data) {
+    //     usersdb.push({
+    //       ...res.data[key],
+    //     });
+    //   }
+    //   console.log(usersdb[0]);
+    //   setstate(usersdb)
+
+    // }).catch(err => {
+    //   setError(err);
+    // });
   }, [])
+
+  
 
 
   const addUserArr = (event) => {
@@ -86,4 +98,9 @@ const App = () => {
   );
 }
 
-export default App;
+
+
+
+export default App ;
+
+

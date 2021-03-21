@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import axios from '../../api/HttpClient';
 
 
 export const adduser = ( user ) => {
@@ -9,14 +8,9 @@ export const adduser = ( user ) => {
     };
 };
 
-export const initUsers = () => {
-    // return dispatch => {
-    //     axios.get( '/user' )
-    //         .then( response => {
-    //            dispatch(setIngredients(response.data));
-    //         } )
-    //         .catch( error => {
-    //             dispatch(fetchIngredientsFailed());
-    //         } );
-    // };
-};
+export const getAllUsers = (payload) => {
+    return {type: actionTypes.GET_USERS,
+             payload:payload
+    }
+}
+

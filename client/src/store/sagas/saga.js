@@ -1,11 +1,7 @@
-import * as actions from "../actions/index";
-import axios from '../../api/HttpClient'
-
-import { takeEvery ,call } from "redux-saga/effects";
-
 import * as actionTypes from "../actions/actionTypes";
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-
+import {call ,put} from "redux-saga/effects";
+import axios from '../../api/HttpClient'
+import * as actions from '../actions/index';
 
 
 export function* createPostSaga(action) {
@@ -14,24 +10,26 @@ export function* createPostSaga(action) {
         name: action.password,
         age: action.age
       };
-    try {
-      yield call(axios.post, "/user", userData);
+    try {;
+      const response = yield call(axios.post, "/user", userData)
+      yield put({ type: actionTypes.POST_SUCCESS, response })
     } catch (error) {
-      console.log(error);
+      yield put({ type: actionTypes.POST_ERROR, error })
     }
   }
-
+  
   export function* getusers() {
 
-    console.log('Hello getusers Sagas!')
+    try {
+        const resp = yield axios.get('/user');
+        yield put(actions.getAllUsers(resp.data));
+        } catch (error) {
+           console.log(error); 
+   }
   }
 
   export function* helloSaga() {
     console.log('Hello Sagas!')
   }
 
-  export function* watchAuth() {
-    yield takeEvery(actionTypes.ADD_USER, createPostSaga);
-    yield takeEvery(actionTypes.GET_USERS, getusers);
  
-  }
