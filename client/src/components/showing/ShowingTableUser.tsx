@@ -37,7 +37,7 @@ const Showing = (props: props) => {
 
     return (
         <div>
-            {rows.length ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
+            {rows && rows.length? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={5} />
             </div>) : <Spinner />}
         </div>

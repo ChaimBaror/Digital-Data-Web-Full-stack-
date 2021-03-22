@@ -11,10 +11,11 @@ var cors = require('cors');
 app.use(cors())
 app.get('/', (req, res) => {
     res.status(200).json({
-        message: "hi chaim here"
+        message: "hi server express here"
     })
 })
 app.use(bodyParser.json())
+
 app.use(user.ROUTE_PATH, user.route)
 
 app.listen(port, () => {

@@ -140,7 +140,7 @@ const AddNewUser = (props: props) => {
                     <TextField
                         id="outlined-basic" label="User Name" variant="outlined"
                         type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
-                    {state.name.value.length ? state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>) : ""}
+                    {state.name.value.length ? state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">Something went wrong...</Alert>) : ""}
 
 
                     <TextField
