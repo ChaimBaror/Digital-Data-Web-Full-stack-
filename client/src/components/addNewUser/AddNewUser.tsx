@@ -1,6 +1,7 @@
 import { Button, FormGroup, makeStyles, TextField } from '@material-ui/core';
-import React, { useState } from 'react'
-import { validationRules } from './validationRules'
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux'
+import { validationRules } from './validationRules';
 import Alert from '@material-ui/lab/Alert';
 
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
     },
 });
 const AddNewUser = (props: props) => {
+    const globalState: any = useSelector(state => state);
 
     const [send, setSend] = useState("")
     const [errorPost, setErrorPost] = useState("")
@@ -138,13 +140,13 @@ const AddNewUser = (props: props) => {
                     <TextField
                         id="outlined-basic" label="User Name" variant="outlined"
                         type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
-                    {state.name.value.length?state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>):""}
+                    {state.name.value.length ? state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">whis is name</Alert>) : ""}
 
 
                     <TextField
                         id="outlined-basic" label="Email" variant="outlined"
                         type="email" name="email" value={state.email.value} onChange={handleInputChange} required />
-                    {state.email.value.length?state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>):""}
+                    {state.email.value.length ? state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>) : ""}
 
                     <TextField id="outlined-basic" label="Age" variant="outlined" type="number" name="age" value={state.age.value} onChange={handleInputChange} required />
 
@@ -152,9 +154,9 @@ const AddNewUser = (props: props) => {
                 </FormGroup>
                 <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
                 <div>
-                {send  && !errorPost? <Alert severity="info">{send}</Alert> : ""}
+                    {send && !errorPost && !globalState.error ? <Alert severity="info">{send}</Alert> : ""}
                 </div>
-                <div>{errorPost? <Alert severity="error">{errorPost}</Alert>:""}</div>
+                <div>{errorPost ? <Alert severity="error">{errorPost}</Alert> : ""}</div>
 
             </div>
         </div>

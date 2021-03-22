@@ -4,6 +4,8 @@ import * as actions from './store/actions/index'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { getusers } from './store/sagas/saga'
+
 
 import axios from './api/HttpClient'
 
@@ -21,12 +23,11 @@ const useStyles = makeStyles({
 const App = () => {
   const dispatch = useDispatch();
   const globalState = useSelector(state => state);
-  console.log("globalState", globalState);
-
+  console.log("globalState");
+    
 
   const [error, setError] = useState("")
-  const [state, setstate] = useState([]);
-  // setstate(globalState.users)
+
   useEffect(() => {
     axios.get('/user').then(res => {
       const usersdb = [];
@@ -36,16 +37,14 @@ const App = () => {
         });
       }
       console.log("get users usersdb");
-      setstate(usersdb)
+      dispatch(actions.usersFromDB(usersdb))
+
     }).catch(error => {
       setError(error.message);
     });
   }, [])
-  //  const getAllUsers = () => {
-  //   const usersdb= dispatch(actions.getAllUsers())
-  //         setstate(usersdb)
 
-  //  }
+
   const addUserArr = (event) => {
     console.log("add User app");
     const newMember = {
@@ -88,7 +87,7 @@ const App = () => {
           <AddNewUser clicked={addUserArr} />
         </Route>
         <Route path="/ShowUsers">
-          <Showing data={state} />
+          <Showing  />
         </Route>
       </Switch>
     </Router>

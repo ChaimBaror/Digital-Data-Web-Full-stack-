@@ -35,16 +35,20 @@ route.post("/", async (req, res) => {
 
 function validateUser(body, enforce) {
   if (!body) {
+    console.log("Invalid body");
     throw new Error("Invalid body");
   }
   const { email, name, age, id } = body;
   if (!email || email && !validator.isEmail(email)) {
+    console.log("Invalid email");
     throw new Error("Invalid email");
   }
   if (!name || name && "string" !== typeof name) {
+    console.log("Invalid name");
     throw new Error("Invalid name");
   }
   if (!age || age && "string" !== typeof age) {
+    console.log("Invalid age");
     throw new Error("Invalid age");
   }
   const chechEmail = getUserByEmail(email)

@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from '../../store/actions/index'
+
 import { DataGrid, ValueGetterParams } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../Spinner/Spinner';
@@ -17,22 +20,31 @@ const useStyles = makeStyles({
         minWidth: 520,
     },
 });
+
+
+
+
 const Showing = (props: props) => {
+    const data={}
+    const dispatch = useDispatch();
+    const globalState: any = useSelector(state => state);
+    console.log("globalState");
+   
 
     const columns = [
-       
-        { field: 'name', headerName: 'User Name', width: 200 },
-        { field: 'age', headerName: 'Age', type: 'number',  width: 120},
-        { field: 'email',headerName: 'EMAIL', width: 200 },]
 
-    const rows:user[] =props.data;       
- 
+        { field: 'name', headerName: 'User Name', width: 200 },
+        { field: 'age', headerName: 'Age', type: 'number', width: 120 },
+        { field: 'email', headerName: 'EMAIL', width: 300 },]
+
+    const rows: user[] = globalState.users;
+
     const classes = useStyles();
 
     return (
         <div>
-            {rows.length>1 ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+            {rows.length ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
+                <DataGrid rows={rows} columns={columns} pageSize={5} />
             </div>) : <Spinner />}
         </div>
     )

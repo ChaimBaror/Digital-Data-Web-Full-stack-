@@ -4,3 +4,5 @@ export const GET_USERS = 'GET_USERS';
 export const POST_SUCCESS = 'POST_SUCCESS';
 export const POST_ERROR = 'POST_ERROR';
 
+export const USERS_FROM_DB = 'USERS_FROM_DB';
+
