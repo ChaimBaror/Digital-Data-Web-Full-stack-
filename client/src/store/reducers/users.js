@@ -2,19 +2,11 @@ import * as astionTypes from '../actions/actionTypes';
 import axios from '../../api/HttpClient';
 
 const INIT_STATE = {
-    users: [
-        // { id: "1", name: "chaim", age: "1", email: 'chi@gmail.com' },
-        // { id: "2", name: "david", age: "2", email: 'david@gmail.com' }
-    ],
+    users: [],
     loading: false,
     error: false
 };
 
-
-const postUser = (state, action) => {
-    return { ...state, };
-
-};
 
 const usersFromDB = (state, action) => {
     console.log("usersToArray reduce");
@@ -23,7 +15,6 @@ const usersFromDB = (state, action) => {
         error: false,
         users: action.payload
     };
-
 };
 
 const getUser = (state, action) => {

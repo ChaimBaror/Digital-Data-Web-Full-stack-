@@ -53,7 +53,7 @@ function validateUser(body, enforce) {
   }
   const chechEmail = getUserByEmail(email)
   if (chechEmail) {
-    console.log("Invalid email is not UniquechechEmail --- ", email);
+    console.log("Invalid email is not Unique chece Email -- ", email);
     throw new Error("Invalid email is not Unique");
   }
 

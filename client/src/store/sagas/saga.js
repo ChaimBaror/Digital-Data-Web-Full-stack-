@@ -6,10 +6,9 @@ import * as actions from '../actions/index';
 
 export function* createPostSaga(action) {
   console.log("create Post Saga action");
-  const userData = action.payload
+  const userData = action.payload;
   try {
-    ;
-    const response = yield axios.post("/user", userData)
+    const response = yield call(axios.post,"/user", userData)
     yield put({ type: actionTypes.POST_SUCCESS, response })
   } catch (error) {
     console.log("Status: " + error + ", Message: " + error.message);

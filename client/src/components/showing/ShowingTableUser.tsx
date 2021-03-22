@@ -20,17 +20,11 @@ const useStyles = makeStyles({
         minWidth: 520,
     },
 });
-
-
-
-
 const Showing = (props: props) => {
-    const data={}
     const dispatch = useDispatch();
     const globalState: any = useSelector(state => state);
     console.log("globalState");
    
-
     const columns = [
 
         { field: 'name', headerName: 'User Name', width: 200 },
