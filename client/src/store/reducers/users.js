@@ -18,7 +18,6 @@ const usersFromDB = (state, action) => {
 };
 
 const getUser = (state, action) => {
-    // const newUsers =  { ...action.payload } ;
     console.log("getUser reduce", action.payload);
     return {
         loading: false,
@@ -29,10 +28,11 @@ const getUser = (state, action) => {
 };
 
 const postUserAfterSaga = (state, action) => {
+    console.log("postUserAfterSaga");
     return {
         loading: false,
         users: action.payload,
-        error: ''
+        error: false
     }
 };
 

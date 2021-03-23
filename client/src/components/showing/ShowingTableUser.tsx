@@ -23,7 +23,11 @@ const useStyles = makeStyles({
 const Showing = (props: props) => {
     const dispatch = useDispatch();
     const globalState: any = useSelector(state => state);
-    console.log("globalState");
+    console.log("globalState",globalState);
+
+    useEffect(() => {
+        dispatch(actions.getAllUsers())
+     }, [])
    
     const columns = [
 
@@ -32,12 +36,14 @@ const Showing = (props: props) => {
         { field: 'email', headerName: 'EMAIL', width: 300 },]
 
     const rows: user[] = globalState.users;
+    console.log("rows",rows);
+    
 
     const classes = useStyles();
 
     return (
         <div>
-            {rows && rows.length? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
+            {rows ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={5} />
             </div>) : <Spinner />}
         </div>

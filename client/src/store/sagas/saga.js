@@ -17,17 +17,16 @@ export function* createPostSaga(action) {
 }
 
 
-export function* getusers() {
-console.log("getusers");
+export function* getUsers() {
   try {
     const resp = yield axios.get('/user');
-    const usersdb = [];
+    const payload = [];
     for (let key in resp.data) {
-      usersdb.push({
+      payload.push({
         ...resp.data[key],
       });
     }
-    yield put(actions.getAllUsers(usersdb));
+    yield put({ type: actionTypes.POST_SUCCESS, payload })
   } catch (error) {
     yield put({ type: actionTypes.POST_ERROR, error })
   }

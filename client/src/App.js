@@ -25,26 +25,6 @@ const App = () => {
   const globalState = useSelector(state => state);
   console.log("globalState");
     
-
-  const [error, setError] = useState("")
-
-  useEffect(() => {
-    axios.get('/user').then(res => {
-      const usersdb = [];
-      for (let key in res.data) {
-        usersdb.push({
-          ...res.data[key],
-        });
-      }
-      console.log("get users usersdb");
-      dispatch(actions.usersFromDB(usersdb))
-
-    }).catch(error => {
-      setError(error.message);
-    });
-  }, [])
-
-
   const addUserArr = (event) => {
     console.log("add User app");
     const newMember = {

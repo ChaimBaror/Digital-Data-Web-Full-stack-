@@ -17,17 +17,15 @@ export const usersFromDB = (payload) => {
     };
 };
 
-export const getAllUsers = (payload) => {
+export const getAllUsers = () => {
     console.log("action get All Users work");
     return {
         type: actionTypes.GET_USERS,
-        payload: payload
     }
 }
 
 export const postUserAfterSaga = (payload) => {
     console.log("post User After Saga");
-
     return {
         type: actionTypes.POST_SUCCESS,
         payload: payload
