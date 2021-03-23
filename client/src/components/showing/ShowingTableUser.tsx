@@ -42,7 +42,7 @@ const Showing = () => {
     return (
         <div>
             {rows ? (<div className={classes.table} style={{ height: 400, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} pageSize={5} />
+                <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection  />
             </div>) : <Spinner />}
         </div>
     )
