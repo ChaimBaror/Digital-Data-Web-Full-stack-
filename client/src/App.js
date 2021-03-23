@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from './store/actions/index'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { getusers } from './store/sagas/saga'
-
-
-import axios from './api/HttpClient'
 
 import AddNewUser from './components/addNewUser/AddNewUser';
 import Showing from './components/showing/ShowingTableUser';
-import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles({
@@ -21,22 +16,9 @@ const useStyles = makeStyles({
 });
 
 const App = () => {
-  const dispatch = useDispatch();
+
   const globalState = useSelector(state => state);
-  console.log("globalState");
-    
-  const addUserArr = (event) => {
-    console.log("add User app");
-    const newMember = {
-      name: event.name,
-      age: event.age,
-      email: event.email,
-    }
-    console.log("actions.adduser(user)");
-    dispatch(actions.adduser(newMember))
-
-  }
-
+  
   const classes = useStyles();
 
   return (
@@ -64,7 +46,7 @@ const App = () => {
 
       <Switch>
         <Route path="/addUser" exact>
-          <AddNewUser clicked={addUserArr} />
+          <AddNewUser />
         </Route>
         <Route path="/ShowUsers">
           <Showing  />

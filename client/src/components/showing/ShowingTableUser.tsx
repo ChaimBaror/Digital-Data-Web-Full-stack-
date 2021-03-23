@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from '../../store/actions/index'
 
@@ -7,37 +7,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import Spinner from '../Spinner/Spinner';
 
 export interface user {
-    id?: string,
+    id: string,
     name: string,
     age: string,
     email: string
 }
-interface props {
-    data: []
-}
+
 const useStyles = makeStyles({
     table: {
         minWidth: 520,
     },
 });
-const Showing = (props: props) => {
+const Showing = () => {
     const dispatch = useDispatch();
-    const globalState: any = useSelector(state => state);
-    console.log("globalState",globalState);
 
     useEffect(() => {
         dispatch(actions.getAllUsers())
-     }, [])
-   
-    const columns = [
+    }, [])
 
+    const globalState: any = useSelector(state => state);
+    console.log("globalState");
+    const rows: user[] = globalState.users;
+
+
+    const columns = [
         { field: 'name', headerName: 'User Name', width: 200 },
         { field: 'age', headerName: 'Age', type: 'number', width: 120 },
-        { field: 'email', headerName: 'EMAIL', width: 300 },]
+        { field: 'email', headerName: 'EMAIL', width: 300 },
+    ]
 
-    const rows: user[] = globalState.users;
-    console.log("rows",rows);
-    
 
     const classes = useStyles();
 

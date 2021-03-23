@@ -1,6 +1,7 @@
 import { Button, FormGroup, makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../store/actions/index'
 import { validationRules } from './validationRules';
 import Alert from '@material-ui/lab/Alert';
 
@@ -45,9 +46,9 @@ const useStyles = makeStyles({
 });
 const AddNewUser = (props: props) => {
     const globalState: any = useSelector(state => state);
+    const dispatch = useDispatch();
 
     const [send, setSend] = useState("")
-    const [errorPost, setErrorPost] = useState("")
     const fields = ['name', 'age', 'email'];
 
     const [state, setState] = useState({
@@ -57,16 +58,16 @@ const AddNewUser = (props: props) => {
         email: { value: '', isTouched: false, isValid: false, errors: [] },
     });
 
-
+   
     const handleSubmit = (event: any) => {
         if (state.name.isValid && state.email.isValid) {
             event.preventDefault();
-            // console.log(state);
-            props.clicked({
+              const newMember = {
                 name: state.name.value,
                 email: state.email.value,
                 age: state.age.value,
-            })
+            }
+            dispatch(actions.adduser(newMember))
             setSend("נשלח בהצלחה")
         }
         else {
@@ -154,10 +155,8 @@ const AddNewUser = (props: props) => {
                 </FormGroup>
                 <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
                 <div>
-                    {send && !errorPost && !globalState.error ? <Alert severity="info">{send}</Alert> : ""}
+                    {send && !globalState.error ? <Alert severity="info">{send}</Alert> : ""}
                 </div>
-                <div>{errorPost ? <Alert severity="error">{errorPost}</Alert> : ""}</div>
-
             </div>
         </div>
     )

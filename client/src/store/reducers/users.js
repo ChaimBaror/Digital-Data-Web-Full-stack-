@@ -1,5 +1,4 @@
 import * as astionTypes from '../actions/actionTypes';
-import axios from '../../api/HttpClient';
 
 const INIT_STATE = {
     users: [],
@@ -40,7 +39,7 @@ const errorMess = (state, action) => {
     console.log(action.error.message);
     return {
         ...state,
-        error: true
+        error: action.error.message
     }
 };
 
