@@ -35,11 +35,11 @@ const postUserAfterSaga = (state, action) => {
     }
 };
 
-const errorMess = (state, action) => {
-    console.log(action.error.message);
+const errorMessage = (state, action) => {
+    console.log(action.error);
     return {
         ...state,
-        error: action.error.message
+        error:  action.error.request.response
     }
 };
 
@@ -51,7 +51,7 @@ const reducer = (state = INIT_STATE, action) => {
         case astionTypes.GET_USERS: return getUser(state, action);
         case astionTypes.USERS_FROM_DB: return usersFromDB(state, action);
         case astionTypes.POST_SUCCESS: return postUserAfterSaga(state, action);
-        case astionTypes.POST_ERROR: return errorMess(state, action);
+        case astionTypes.POST_ERROR: return errorMessage(state, action);
 
         default:
             return state;
