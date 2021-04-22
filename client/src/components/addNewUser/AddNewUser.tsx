@@ -9,11 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 interface props {
     clicked: (e: any) => void;
 }
-interface fields {
-    name: string,
-    email: string,
-    age: string,
-}
+
 const useStyles = makeStyles({
     root: {
         display: 'flex',
@@ -44,7 +40,7 @@ const useStyles = makeStyles({
         marginTop: '5px',
     },
 });
-const AddNewUser = (props: props) => {
+const AddNewUser = () => {
     const globalState: any = useSelector(state => state);
     const dispatch = useDispatch();
 
@@ -58,11 +54,11 @@ const AddNewUser = (props: props) => {
         email: { value: '', isTouched: false, isValid: false, errors: [] },
     });
 
-   
+
     const handleSubmit = (event: any) => {
         if (state.name.isValid && state.email.isValid) {
             event.preventDefault();
-              const newMember = {
+            const newMember = {
                 name: state.name.value,
                 email: state.email.value,
                 age: state.age.value,
@@ -139,20 +135,44 @@ const AddNewUser = (props: props) => {
                 <FormGroup >
 
                     <TextField
-                        id="outlined-basic" label="User Name" variant="outlined"
-                        type="text" name="name" value={state.name.value} onChange={handleInputChange} required />
+                        id="outlined-basic"
+                        label="User Name"
+                        variant="outlined"
+                        type="text"
+                        name="name"
+                        value={state.name.value}
+                        onChange={handleInputChange}
+                        required
+                    />
                     {state.name.value.length ? state.name.isValid && state.name.value.length > 1 ? (<Alert severity="success">good name</Alert>) : (<Alert severity="error">Something went wrong...</Alert>) : ""}
 
 
                     <TextField
-                        id="outlined-basic" label="Email" variant="outlined"
-                        type="email" name="email" value={state.email.value} onChange={handleInputChange} required />
+                        id="outlined-basic"
+                        label="Email"
+                        variant="outlined"
+                        type="email"
+                        name="email"
+                        value={state.email.value}
+                        onChange={handleInputChange}
+                        required
+                    />
                     {state.email.value.length ? state.email.isValid && state.email.value.length ? (<Alert severity="success">Email....</Alert>) : (<Alert severity="error">Email....</Alert>) : ""}
 
-                    <TextField id="outlined-basic" label="Age" variant="outlined" type="number" name="age" value={state.age.value} onChange={handleInputChange} required />
+                    <TextField
+                        id="outlined-basic"
+                        label="Age"
+                        variant="outlined"
+                        type="number"
+                        name="age"
+                        value={state.age.value}
+                        onChange={handleInputChange}
+                        required
+                    />
 
 
                 </FormGroup>
+               
                 <Button color="primary" type="submit" onClick={handleSubmit} >Add User</Button>
                 <div>
                     {send && !globalState.error ? <Alert severity="info">{send}</Alert> : ""}

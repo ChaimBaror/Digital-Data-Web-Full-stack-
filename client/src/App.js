@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AddNewUser from './components/addNewUser/AddNewUser';
 import Showing from './components/showing/ShowingTableUser';
+import ProductDetail from './components/productDetail/productDetail';
 
 
 const useStyles = makeStyles({
@@ -50,6 +51,9 @@ const App = () => {
         </Route>
         <Route path="/ShowUsers">
           <Showing  />
+        </Route>
+        <Route path="/Products/:productId">
+          <ProductDetail  />
         </Route>
       </Switch>
     </Router>
